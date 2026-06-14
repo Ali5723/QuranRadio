@@ -1,16 +1,8 @@
 <script setup>
-import {
-  Mic,
-  Moon,
-  Pause,
-  Play,
-  Radio,
-  Search,
-  Volume2,
-  VolumeX,
-} from "@lucide/vue";
-import { onBeforeMount, ref } from "vue";
+import { Mic, Pause, Play, Radio, Search, Volume2, VolumeX } from "@lucide/vue";
+import { onBeforeMount, onMounted, ref, watch, watchPostEffect } from "vue";
 import { useDataStore } from "./stores/dataStore";
+import { Moon } from "@lucide/vue";
 
 let themeIcon = ref(Moon);
 let langExt = ref("en");
@@ -18,13 +10,38 @@ let numberOfReciters = ref(0);
 
 const apiPrefix = import.meta.env.VITE_API_PREFIX;
 const dataStore = useDataStore();
-onBeforeMount(async () => {
-  await fetch("/src/assets/data.json")
-    .then((res) => res.json())
-    .then((res) => {
-      dataStore.setData(res);
-      numberOfReciters.value = dataStore.numberOfReciters;
-    });
+// onBeforeMount(async () => {
+//   await fetch("/src/assets/data.json")
+//     .then((res) => res.json())
+//     .then((res) => {
+//       dataStore.setData(res, localStorage);
+//     });
+// });
+onMounted(async () => {
+  if (!dataStore.loaded) {
+    await dataStore.fetchData();
+  }
+});
+// watchPostEffect(dataStore, () => {
+//   themeIcon.value = dataStore.themeIcon;
+//   langExt.value = dataStore.langExt;
+//   numberOfReciters.value = dataStore.numberOfReciters;
+// });
+// watch(
+//   () => [dataStore.themeIcon, dataStore.langExt, dataStore.numberOfReciters],
+//   ([themeIcon, langExt, numberOfReciters]) => {
+//     themeIcon.value = dataStore.themeIcon;
+//     langExt.value = dataStore.langExt;
+//     numberOfReciters.value = dataStore.numberOfReciters;
+//   },
+//   { immediate: true },
+// );
+watchPostEffect(() => {
+  if (!dataStore.loaded) return;
+
+  themeIcon.value = dataStore.themeIcon;
+  langExt.value = dataStore.langExt;
+  numberOfReciters.value = dataStore.numberOfReciters;
 });
 </script>
 
@@ -37,10 +54,13 @@ onBeforeMount(async () => {
         <p>Listen to the Holy Quran - {{ numberOfReciters }} reciters</p>
       </div>
       <div class="switchers">
-        <div class="themeSwitcher main-border">
+        <div
+          class="main-border"
+          @click="dataStore.toggleTheme(themeIcon.value)"
+        >
           <component :is="themeIcon" />
         </div>
-        <div class="langSwitcher main-border">
+        <div class="main-border">
           <p>{{ langExt }}</p>
         </div>
       </div>
