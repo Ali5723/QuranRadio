@@ -6,9 +6,19 @@
 .main-border {
   @apply border border-neutral-600/30;
 }
+.rtl {
+  direction: rtl;
+}
+
+#app {
+  @apply relative z-0;
+}
+#app::before {
+  @apply content-[""] bg-linear-to-r from-teal-100/40 via-neutral-50 to-transparent absolute top-37.5 left-0 w-screen h-[calc(100%-110px)] -z-10;
+}
 
 header {
-  @apply grid grid-cols-[1fr_auto] gap-x-4 items-center py-5 gap-y-6;
+  @apply grid grid-cols-[1fr_auto] gap-x-4 items-center py-5 gap-y-6 z-10 relative;
 }
 header .logoPart {
   @apply grid grid-cols-[auto_1fr] items-center gap-x-4;
@@ -50,15 +60,93 @@ header .searchContainer input {
   @apply text-sm w-full rounded-md py-1.5 pl-8 transition-all duration-300 outline-0;
 }
 header .searchContainer input::placeholder {
-  @apply text-blue-950
+  @apply text-blue-950;
 }
 header .searchContainer input:focus {
-  @apply border-blue-950 ring-4 ring-neutral-300
+  @apply border-blue-950 ring-4 ring-neutral-300;
 }
 hr {
   @apply absolute w-full left-0 border-emerald-500/30;
 }
 
 main {
-  @apply bg-linear-to-br from-teal-500 via-55% to-neutral-50
+  @apply flex flex-col gap-8 my-8;
+}
+main .favorites {
+  @apply flex flex-col gap-4;
+}
+main .favorites h2 {
+  @apply flex gap-2 text-neutral-500/70 font-semibold text-base;
+}
+main .favorites h2 svg {
+  @apply fill-red-500 text-transparent;
+}
+main .favorites .favorite-items {
+  @apply flex gap-3 flex-wrap;
+}
+main .favorites .favorite-item {
+  @apply text-emerald-700 font-bold flex items-center gap-2 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-sm transition-colors duration-300 cursor-default;
+}
+main .favorites .favorite-item:hover {
+  @apply bg-emerald-200;
+}
+main .favorites .favorite-item.active {
+  @apply bg-emerald-200;
+}
+main .favorites .favorite-item svg {
+  @apply size-4;
+}
+
+main .tags {
+  @apply flex gap-1 bg-neutral-200/80 p-1 w-fit rounded-2xl mx-auto sm:mx-0 sm:gap-2;
+}
+main .tags .tag {
+  @apply capitalize cursor-pointer rounded-full px-2 py-1 transition-colors duration-300 font-bold text-sm;
+}
+main .tags .tag:not(.active):hover {
+  @apply bg-neutral-100/70;
+}
+main .tags .tag.active {
+  @apply bg-neutral-50 pointer-events-none;
+}
+
+main .cards {
+  @apply grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4;
+}
+main .cards .card {
+  @apply flex flex-col border border-neutral-300 rounded-2xl p-6 gap-x-4 gap-y-8 transition-all duration-300 cursor-pointer;
+}
+main .cards .card:not(.active):hover {
+  @apply shadow-md shadow-emerald-100;
+}
+main .cards .card div {
+  @apply grid grid-cols-[1fr_auto] justify-between items-center;
+}
+main .cards .card div h2 {
+  @apply font-medium w-41.25 truncate;
+}
+main .cards .card div svg {
+  @apply size-4 text-neutral-400;
+}
+main .cards .card div svg.favorite {
+  @apply text-red-600 fill-red-500;
+}
+main .cards .card button {
+  @apply col-span-2 flex justify-center items-center gap-2 font-medium border border-neutral-300 rounded-lg py-1.5 transition-all duration-300 text-sm;
+}
+main .cards .card button:hover {
+  @apply bg-neutral-200/70;
+}
+main .cards .card button svg {
+  @apply size-4;
+}
+
+main .cards .card.active {
+  @apply border-emerald-500 outline-1 outline-emerald-500;
+}
+main .cards .card.active.playing button {
+  @apply bg-emerald-600 text-neutral-50 border-0;
+}
+main .cards .card.active.playing button:hover {
+  @apply bg-emerald-700;
 }
