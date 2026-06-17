@@ -1,14 +1,16 @@
 <script setup>
 import { Mic, Pause, Play, Radio, Search, Volume2, VolumeX } from "@lucide/vue";
-import { onBeforeMount, ref, watch } from "vue";
-import { useDataStore } from "./stores/dataStore";
+import { computed, onBeforeMount, ref, watch } from "vue";
+import { capitalize, useDataStore } from "./stores/dataStore";
 import { Moon } from "@lucide/vue";
 import { Heart } from "@lucide/vue";
 import FavoriteItem from "./components/FavoriteItem.vue";
 import CardItem from "./components/CardItem.vue";
 
-// import { useStream } from "@/composables/useStream";
-// const stream = useStream();
+import { useStream } from "./composables/useStream";
+const stream = useStream();
+let { playing } = stream;
+
 // onMounted(() => {
 //   stream.start("https://your-stream-url");
 // });
@@ -20,15 +22,18 @@ let themeIcon = ref(Moon);
 let langExt = ref("en");
 let numberOfReciters = ref(0);
 let cardsData = ref([]);
+let isArLang = ref(false);
+let theTitle = ref("");
 
-const apiPrefix = import.meta.env.VITE_API_PREFIX;
 const dataStore = useDataStore();
 onBeforeMount(async () => {
-  await fetch("/src/assets/data.json")
+  await fetch("/data.json")
     .then((res) => res.json())
     .then((res) => {
       dataStore.setData(res, localStorage);
     });
+  // const data = await import("@/assets/data.json");
+  // dataStore.setData(data.default, localStorage);
 });
 watch(
   () => dataStore.counter,
@@ -37,8 +42,30 @@ watch(
     themeIcon.value = dataStore.themeIcon;
     langExt.value = dataStore.langExt;
     cardsData.value = dataStore.cardsData;
+    isArLang.value = dataStore.arLang;
+    theTitle.value = dataStore.theTitle;
   },
 );
+
+function handleSearch(data) {
+  cardsData.value = dataStore.cardsData
+    .map((item) => item.toLowerCase())
+    .filter((item) => item.includes(data.toLowerCase()))
+    .map((item) =>
+      item
+        .split(" ")
+        .map((cap) => capitalize(cap))
+        .join(" "),
+    );
+}
+
+function handlePlay() {
+  if (playing.value) {
+    stream.stop();
+  } else {
+    stream.start(dataStore.getLink(theTitle.value));
+  }
+}
 </script>
 
 <template>
@@ -63,24 +90,27 @@ watch(
         <Search />
         <input
           type="text"
-          placeholder="Search reciters, styles, or origins…"
+          placeholder="Search reciters…"
           class="main-border"
+          @keyup="handleSearch($event.target.value)"
         />
       </div>
     </header>
     <hr />
-    <main :class="['container', langExt === 'ar' ? 'rtl' : '']">
+    <main :class="['container', isArLang ? 'rtl' : '']">
       <div class="favorites" v-if="dataStore.favorites.length">
         <h2>
           <Heart />
-          Favorites
+          {{ isArLang ? "المفضلة" : "Favorites" }}
         </h2>
         <div class="favorite-items">
           <FavoriteItem
-            v-for="(item, index) in dataStore.favorites"
+            v-for="(item, index) in dataStore.allFavorites"
             :title="item"
             :key="`${item}-${index}`"
             :run="item"
+            :main-id="`${dataStore.mainTag}-${dataStore.getIndex(dataStore.mainTag, item)}`"
+            :set-play="dataStore.setPlay"
           />
         </div>
       </div>
@@ -96,28 +126,28 @@ watch(
       </div>
       <div class="cards">
         <CardItem
-          :is-ar-lang="langExt === 'ar'"
+          :is-ar-lang="isArLang"
           v-for="(item, index) in cardsData"
           :key="`${item}-${index}`"
           :title="item"
           :favorite-list="dataStore.favorites"
           :favorite-pass="dataStore.toggleFavorite"
+          :main-id="`${dataStore.mainTag}-${dataStore.getIndex(dataStore.mainTag, item)}`"
+          :set-play="dataStore.setPlay"
         />
       </div>
     </main>
-    <footer v-show="false">
+    <footer :class="isArLang ? 'rtl' : ''" v-show="Boolean(theTitle)">
       <div class="logoPart">
         <div class="logo">
           <Mic />
         </div>
-        <h2>Name</h2>
+        <h2>{{ dataStore.mainTitle(theTitle) }}</h2>
       </div>
       <div class="controllers">
-        <Volume2 />
-        <VolumeX />
-        <div class="control">
-          <Play />
-          <Pause />
+        <div class="control" @click="handlePlay">
+          <Pause v-if="playing" />
+          <Play v-else />
         </div>
       </div>
     </footer>

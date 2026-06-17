@@ -18,10 +18,21 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  mainId: {
+    type: String,
+    required: true,
+  },
+  setPlay: {
+    type: Function,
+    required: true,
+  },
 });
 
-function handleClick() {
-  props.favoritePass(props.title)
+function handleGo() {
+  props.setPlay(props.mainId)
+}
+function handleFavorite() {
+  props.favoritePass(props.mainId);
 }
 </script>
 
@@ -29,9 +40,12 @@ function handleClick() {
   <div class="card">
     <div>
       <h2>{{ title }}</h2>
-      <Heart :class="favoriteList.includes(title) ? 'favorite' : ''" @click="handleClick" />
+      <Heart
+        :class="favoriteList.includes(mainId) ? 'favorite' : ''"
+        @click="handleFavorite"
+      />
     </div>
-    <button><Play /> {{ isArLang ? "تشغيل" : "Play" }}</button>
+    <button @click="handleGo"><Play /> {{ isArLang ? "تشغيل" : "Play" }}</button>
     <!-- ايقاف -->
   </div>
 </template>

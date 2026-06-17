@@ -1,4 +1,4 @@
-import streamManager from "@/services/streamManager";
+import streamManager from "../services/streamManager";
 
 export function useStream() {
   return {

@@ -12,17 +12,25 @@ const props = defineProps({
   },
   run: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
+  mainId: {
+    type: String,
+    required: true,
+  },
+  setPlay: {
+    type: Function,
+    required: true,
+  },
 });
 
-function handleClick() {
-console.log(props.run)
+function handleGo() {
+  props.setPlay(props.mainId)
 }
 </script>
 
 <template>
-  <div :class="['favorite-item', active ? 'active' : '']" @click="handleClick">
+  <div :class="['favorite-item', active ? 'active' : '']" @click="handleGo">
     <Pause v-if="active" /> <Play v-else /> {{ title }}
   </div>
 </template>

@@ -38,17 +38,17 @@ class StreamManager {
       this.playing.value = false;
     });
 
-    this.audio.addEventListener("error", () => {
-      this.reconnect();
-    });
+    // this.audio.addEventListener("error", () => {
+    //   this.reconnect();
+    // });
 
-    this.audio.addEventListener("stalled", () => {
-      this.reconnect();
-    });
+    // this.audio.addEventListener("stalled", () => {
+    //   this.reconnect();
+    // });
 
-    this.audio.addEventListener("ended", () => {
-      this.reconnect();
-    });
+    // this.audio.addEventListener("ended", () => {
+    //   this.reconnect();
+    // });
 
     try {
       await this.audio.play();

@@ -1,7 +1,60 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Tajawal";
+  src: url("/Tajawal/Tajawal-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tajawal";
+  src: url("/Tajawal/Tajawal-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tajawal";
+  src: url("/Tajawal/Tajawal-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tajawal";
+  src: url("/Tajawal/Tajawal-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tajawal";
+  src: url("/Tajawal/Tajawal-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tajawal";
+  src: url("/Tajawal/Tajawal-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tajawal";
+  src: url("/Tajawal/Tajawal-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@theme {
+  --font-tajawal: "Tajawal", Arial, sans-serif;
+}
+
 .container {
-  @apply px-4 mx-auto;
+  @apply px-4 mx-auto font-tajawal;
 }
 .main-border {
   @apply border border-neutral-600/30;
@@ -14,7 +67,7 @@
   @apply relative z-0;
 }
 #app::before {
-  @apply content-[""] bg-linear-to-r from-teal-100/40 via-neutral-50 to-transparent absolute top-37.5 left-0 w-screen h-[calc(100%-110px)] -z-10;
+  @apply content-[""] bg-linear-to-r from-teal-100/40 via-neutral-50 to-transparent absolute top-37.5 left-0 w-screen h-[calc(100%-150px)] -z-10;
 }
 
 header {
@@ -70,7 +123,7 @@ hr {
 }
 
 main {
-  @apply flex flex-col gap-8 my-8;
+  @apply flex flex-col gap-8 my-8 min-h-[calc(100vh-18rem)];
 }
 main .favorites {
   @apply flex flex-col gap-4;
@@ -111,10 +164,10 @@ main .tags .tag.active {
 }
 
 main .cards {
-  @apply grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4;
+  @apply grid grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4;
 }
 main .cards .card {
-  @apply flex flex-col border border-neutral-300 rounded-2xl p-6 gap-x-4 gap-y-8 transition-all duration-300 cursor-pointer;
+  @apply flex flex-col border border-neutral-300 rounded-2xl p-6 gap-x-4 gap-y-8 transition-all duration-300;
 }
 main .cards .card:not(.active):hover {
   @apply shadow-md shadow-emerald-100;
@@ -123,7 +176,7 @@ main .cards .card div {
   @apply grid grid-cols-[1fr_auto] justify-between items-center;
 }
 main .cards .card div h2 {
-  @apply font-medium w-41.25 truncate;
+  @apply font-medium  min-[468px]:w-41.25 truncate;
 }
 main .cards .card div svg {
   @apply size-4 text-neutral-400;
@@ -132,7 +185,7 @@ main .cards .card div svg.favorite {
   @apply text-red-600 fill-red-500;
 }
 main .cards .card button {
-  @apply col-span-2 flex justify-center items-center gap-2 font-medium border border-neutral-300 rounded-lg py-1.5 transition-all duration-300 text-sm;
+  @apply col-span-2 flex justify-center items-center gap-2 font-medium border border-neutral-300 rounded-lg py-1.5 transition-all duration-300 text-sm cursor-pointer;
 }
 main .cards .card button:hover {
   @apply bg-neutral-200/70;
@@ -149,4 +202,29 @@ main .cards .card.active.playing button {
 }
 main .cards .card.active.playing button:hover {
   @apply bg-emerald-700;
+}
+
+footer {
+  @apply sticky bottom-0 flex justify-between py-3 border-t border-neutral-300 bg-neutral-100 px-10;
+}
+footer .logoPart {
+  @apply flex items-center gap-3;
+}
+footer .logoPart .logo {
+  @apply p-4 bg-linear-to-br from-emerald-500 to-emerald-600 rounded-xl;
+}
+footer .logoPart .logo svg {
+  @apply size-5 text-neutral-50;
+}
+footer .logoPart h2 {
+  @apply font-bold;
+}
+footer .controllers {
+  @apply flex items-center;
+}
+footer .controllers .control {
+  @apply p-4 bg-emerald-600 rounded-full cursor-pointer;
+}
+footer .controllers .control svg {
+  @apply text-neutral-50 size-4;
 }
