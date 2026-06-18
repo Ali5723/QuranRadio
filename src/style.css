@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
   font-family: "Tajawal";
   src: url("/Tajawal/Tajawal-ExtraLight.ttf") format("truetype");
@@ -64,10 +66,10 @@
 }
 
 #app {
-  @apply relative z-0;
+  @apply relative z-0 dark:before:bg-none! dark:bg-gray-900 dark:before:bg-gray-950;
 }
 #app::before {
-  @apply content-[""] bg-linear-to-r from-teal-100/40 via-neutral-50 to-transparent absolute top-37.5 left-0 w-screen h-[calc(100%-150px)] -z-10;
+  @apply content-[""] bg-linear-to-r from-teal-100/40 via-neutral-50 to-white absolute top-37.5 left-0 w-screen h-[calc(100%-150px)] -z-10;
 }
 
 header {
@@ -86,7 +88,7 @@ header .logoPart h1 {
   @apply font-bold text-2xl bg-linear-to-br from-emerald-700 to-emerald-500 bg-clip-text text-transparent w-fit pl-1;
 }
 p {
-  @apply text-sm text-neutral-600/80;
+  @apply text-sm text-neutral-600/80 dark:text-gray-200;
 }
 header .switchers {
   @apply row-span-2 flex flex-col gap-1;
@@ -95,10 +97,10 @@ header .switchers > div {
   @apply w-8 h-8 flex justify-center items-center cursor-default transition-all duration-300 rounded-lg;
 }
 header .switchers > div:hover {
-  @apply border-neutral-600/40 bg-neutral-200/80;
+  @apply border-neutral-600/40 bg-neutral-200/80 dark:bg-gray-800;
 }
 header .switchers > div svg {
-  @apply size-4;
+  @apply size-4 dark:text-yellow-400;
 }
 header .switchers > div p {
   @apply font-medium;
@@ -107,19 +109,16 @@ header .searchContainer {
   @apply flex relative items-center pl-2;
 }
 header .searchContainer svg {
-  @apply size-4 text-neutral-600/80 absolute left-4;
+  @apply size-4 text-neutral-600/80 absolute left-4 dark:text-gray-400;
 }
 header .searchContainer input {
-  @apply text-sm w-full rounded-md py-1.5 pl-8 transition-all duration-300 outline-0;
-}
-header .searchContainer input::placeholder {
-  @apply text-blue-950;
+  @apply text-sm w-full rounded-md py-1.5 pl-8 transition-all duration-300 outline-0 dark:placeholder:text-gray-200/70 placeholder:text-gray-800 dark:text-gray-200 dark:bg-gray-800;
 }
 header .searchContainer input:focus {
-  @apply border-blue-950 ring-4 ring-neutral-300;
+  @apply border-blue-950 ring-4 ring-neutral-300 dark:border-gray-700 dark:ring-emerald-600;
 }
 hr {
-  @apply absolute w-full left-0 border-emerald-500/30;
+  @apply absolute w-full left-0 border-emerald-500/30 dark:border-gray-800;
 }
 
 main {
@@ -129,7 +128,7 @@ main .favorites {
   @apply flex flex-col gap-4;
 }
 main .favorites h2 {
-  @apply flex gap-2 text-neutral-500/70 font-semibold text-base;
+  @apply flex gap-2 text-neutral-500/70 font-semibold text-base dark:text-gray-300;
 }
 main .favorites h2 svg {
   @apply fill-red-500 text-transparent;
@@ -138,10 +137,10 @@ main .favorites .favorite-items {
   @apply flex gap-3 flex-wrap;
 }
 main .favorites .favorite-item {
-  @apply text-emerald-700 font-bold flex items-center gap-2 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-sm transition-colors duration-300 cursor-default;
+  @apply text-emerald-700 font-bold flex items-center gap-2 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-sm transition-colors duration-300 cursor-default dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600;
 }
 main .favorites .favorite-item:hover {
-  @apply bg-emerald-200;
+  @apply bg-emerald-200 dark:bg-gray-700;
 }
 main .favorites .favorite-item.active {
   @apply bg-emerald-200;
@@ -167,16 +166,16 @@ main .cards {
   @apply grid grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4;
 }
 main .cards .card {
-  @apply flex flex-col border border-neutral-300 rounded-2xl p-6 gap-x-4 gap-y-8 transition-all duration-300;
+  @apply flex flex-col border border-neutral-300 rounded-2xl p-6 gap-x-4 gap-y-8 transition-all duration-300 dark:bg-gray-900 dark:border-gray-800;
 }
 main .cards .card:not(.active):hover {
-  @apply shadow-md shadow-emerald-100;
+  @apply shadow-md shadow-emerald-100 dark:shadow-none;
 }
 main .cards .card div {
   @apply grid grid-cols-[1fr_auto] justify-between items-center;
 }
 main .cards .card div h2 {
-  @apply font-medium  min-[468px]:w-41.25 truncate;
+  @apply font-medium min-[468px]:w-41.25 truncate dark:text-gray-300;
 }
 main .cards .card div svg {
   @apply size-4 text-neutral-400;
@@ -185,27 +184,27 @@ main .cards .card div svg.favorite {
   @apply text-red-600 fill-red-500;
 }
 main .cards .card button {
-  @apply col-span-2 flex justify-center items-center gap-2 font-medium border border-neutral-300 rounded-lg py-1.5 transition-all duration-300 text-sm cursor-pointer;
+  @apply col-span-2 flex justify-center items-center gap-2 font-medium border border-neutral-300 rounded-lg py-1.5 transition-all duration-300 text-sm cursor-pointer dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600;
 }
 main .cards .card button:hover {
-  @apply bg-neutral-200/70;
+  @apply bg-neutral-200/70 dark:bg-gray-700;
 }
 main .cards .card button svg {
   @apply size-4;
 }
 
 main .cards .card.active {
-  @apply border-emerald-500 outline-1 outline-emerald-500;
+  @apply border-emerald-500 outline-1 outline-emerald-500 dark:border-emerald-700 dark:outline-emerald-700;
 }
 main .cards .card.active.playing button {
-  @apply bg-emerald-600 text-neutral-50 border-0;
+  @apply bg-emerald-600 text-neutral-50 border-0 dark:bg-emerald-700;
 }
 main .cards .card.active.playing button:hover {
-  @apply bg-emerald-700;
+  @apply bg-emerald-700 dark:bg-emerald-600;
 }
 
 footer {
-  @apply sticky bottom-0 flex justify-between py-3 border-t border-neutral-300 bg-neutral-100 px-10;
+  @apply sticky bottom-0 flex justify-between py-3 border-t border-neutral-300 bg-neutral-100 px-4 sm:px-12 md:px-20 dark:bg-gray-900 dark:border-gray-800 dark:text-gray-200;
 }
 footer .logoPart {
   @apply flex items-center gap-3;

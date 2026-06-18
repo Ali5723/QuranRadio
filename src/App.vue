@@ -11,19 +11,13 @@ import { useStream } from "./composables/useStream";
 const stream = useStream();
 let { playing } = stream;
 
-// onMounted(() => {
-//   stream.start("https://your-stream-url");
-// });
-// onUnmounted(() => {
-//   stream.stop();
-// });
-
 let themeIcon = ref(Moon);
 let langExt = ref("en");
 let numberOfReciters = ref(0);
 let cardsData = ref([]);
 let isArLang = ref(false);
 let theTitle = ref("");
+let darkTheme = ref(false);
 
 const dataStore = useDataStore();
 onBeforeMount(async () => {
@@ -32,8 +26,6 @@ onBeforeMount(async () => {
     .then((res) => {
       dataStore.setData(res, localStorage);
     });
-  // const data = await import("@/assets/data.json");
-  // dataStore.setData(data.default, localStorage);
 });
 watch(
   () => dataStore.counter,
@@ -44,6 +36,12 @@ watch(
     cardsData.value = dataStore.cardsData;
     isArLang.value = dataStore.arLang;
     theTitle.value = dataStore.theTitle;
+    darkTheme.value = dataStore.darkTheme;
+    if (darkTheme.value) {
+      document.getElementById("app").classList.add("dark");
+    } else {
+      document.getElementById("app").classList.remove("dark");
+    }
   },
 );
 
@@ -114,7 +112,7 @@ function handlePlay() {
           />
         </div>
       </div>
-      <div class="tags">
+      <div class="tags" v-if="false">
         <div
           :class="['tag', { active: dataStore.activeTag === item }]"
           v-for="(item, index) in dataStore.tags"
