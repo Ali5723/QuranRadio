@@ -4,49 +4,49 @@
 
 @font-face {
   font-family: "Tajawal";
-  src: url("/Tajawal/Tajawal-ExtraLight.ttf") format("truetype");
+  src: url("/fonts/Tajawal/Tajawal-ExtraLight.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Tajawal";
-  src: url("/Tajawal/Tajawal-Light.ttf") format("truetype");
+  src: url("/fonts/Tajawal/Tajawal-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Tajawal";
-  src: url("/Tajawal/Tajawal-Regular.ttf") format("truetype");
+  src: url("/fonts/Tajawal/Tajawal-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Tajawal";
-  src: url("/Tajawal/Tajawal-Medium.ttf") format("truetype");
+  src: url("/fonts/Tajawal/Tajawal-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Tajawal";
-  src: url("/Tajawal/Tajawal-Bold.ttf") format("truetype");
+  src: url("/fonts/Tajawal/Tajawal-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Tajawal";
-  src: url("/Tajawal/Tajawal-ExtraBold.ttf") format("truetype");
+  src: url("/fonts/Tajawal/Tajawal-ExtraBold.ttf") format("truetype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Tajawal";
-  src: url("/Tajawal/Tajawal-Black.ttf") format("truetype");
+  src: url("/fonts/Tajawal/Tajawal-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -59,17 +59,21 @@
   @apply px-4 mx-auto font-tajawal;
 }
 .main-border {
-  @apply border border-neutral-600/30;
+  @apply border border-gray-600/30;
 }
 .rtl {
   direction: rtl;
+}
+
+body {
+  overscroll-behavior-y: contain;
 }
 
 #app {
   @apply relative z-0 dark:before:bg-none! dark:bg-gray-900 dark:before:bg-gray-950;
 }
 #app::before {
-  @apply content-[""] bg-linear-to-r from-teal-100/40 via-neutral-50 to-white absolute top-37.5 left-0 w-screen h-[calc(100%-150px)] -z-10;
+  @apply content-[""] bg-linear-to-r from-teal-100/40 via-gray-50 to-white absolute top-37.5 left-0 w-screen h-[calc(100%-110px)] -z-10;
 }
 
 header {
@@ -82,13 +86,13 @@ header .logoPart .logo {
   @apply row-span-2 w-fit rounded-full p-2.5 bg-linear-to-br from-emerald-500 to-emerald-600;
 }
 header .logoPart .logo svg {
-  @apply text-neutral-50 size-5;
+  @apply text-gray-50 size-5;
 }
 header .logoPart h1 {
   @apply font-bold text-2xl bg-linear-to-br from-emerald-700 to-emerald-500 bg-clip-text text-transparent w-fit pl-1;
 }
 p {
-  @apply text-sm text-neutral-600/80 dark:text-gray-200;
+  @apply text-sm text-gray-600/80 dark:text-gray-200;
 }
 header .switchers {
   @apply row-span-2 flex flex-col gap-1;
@@ -97,7 +101,7 @@ header .switchers > div {
   @apply w-8 h-8 flex justify-center items-center cursor-default transition-all duration-300 rounded-lg;
 }
 header .switchers > div:hover {
-  @apply border-neutral-600/40 bg-neutral-200/80 dark:bg-gray-800;
+  @apply border-gray-600/40 bg-gray-200/80 dark:bg-gray-800;
 }
 header .switchers > div svg {
   @apply size-4 dark:text-yellow-400;
@@ -109,13 +113,13 @@ header .searchContainer {
   @apply flex relative items-center pl-2;
 }
 header .searchContainer svg {
-  @apply size-4 text-neutral-600/80 absolute left-4 dark:text-gray-400;
+  @apply size-4 text-gray-600/80 absolute left-4 dark:text-gray-400;
 }
 header .searchContainer input {
   @apply text-sm w-full rounded-md py-1.5 pl-8 transition-all duration-300 outline-0 dark:placeholder:text-gray-200/70 placeholder:text-gray-800 dark:text-gray-200 dark:bg-gray-800;
 }
 header .searchContainer input:focus {
-  @apply border-blue-950 ring-4 ring-neutral-300 dark:border-gray-700 dark:ring-emerald-600;
+  @apply border-blue-950 ring-4 ring-gray-300 dark:border-gray-700 dark:ring-emerald-600;
 }
 hr {
   @apply absolute w-full left-0 border-emerald-500/30 dark:border-gray-800;
@@ -128,7 +132,7 @@ main .favorites {
   @apply flex flex-col gap-4;
 }
 main .favorites h2 {
-  @apply flex gap-2 text-neutral-500/70 font-semibold text-base dark:text-gray-300;
+  @apply flex gap-2 text-gray-500/70 font-semibold text-base dark:text-gray-300;
 }
 main .favorites h2 svg {
   @apply fill-red-500 text-transparent;
@@ -150,23 +154,23 @@ main .favorites .favorite-item svg {
 }
 
 main .tags {
-  @apply flex gap-1 bg-neutral-200/80 p-1 w-fit rounded-2xl mx-auto sm:mx-0 sm:gap-2;
+  @apply flex gap-1 bg-gray-200/80 p-1 w-fit rounded-2xl mx-auto sm:mx-0 sm:gap-2;
 }
 main .tags .tag {
   @apply capitalize cursor-pointer rounded-full px-2 py-1 transition-colors duration-300 font-bold text-sm;
 }
 main .tags .tag:not(.active):hover {
-  @apply bg-neutral-100/70;
+  @apply bg-gray-100/70;
 }
 main .tags .tag.active {
-  @apply bg-neutral-50 pointer-events-none;
+  @apply bg-gray-50 pointer-events-none;
 }
 
 main .cards {
   @apply grid grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4;
 }
 main .cards .card {
-  @apply flex flex-col border border-neutral-300 rounded-2xl p-6 gap-x-4 gap-y-8 transition-all duration-300 dark:bg-gray-900 dark:border-gray-800;
+  @apply flex flex-col border border-gray-300 rounded-2xl p-6 gap-x-4 gap-y-8 transition-all duration-300 dark:bg-gray-900 dark:border-gray-800;
 }
 main .cards .card:not(.active):hover {
   @apply shadow-md shadow-emerald-100 dark:shadow-none;
@@ -178,16 +182,16 @@ main .cards .card div h2 {
   @apply font-medium min-[468px]:w-41.25 truncate dark:text-gray-300;
 }
 main .cards .card div svg {
-  @apply size-4 text-neutral-400;
+  @apply size-4 text-gray-400;
 }
 main .cards .card div svg.favorite {
   @apply text-red-600 fill-red-500;
 }
 main .cards .card button {
-  @apply col-span-2 flex justify-center items-center gap-2 font-medium border border-neutral-300 rounded-lg py-1.5 transition-all duration-300 text-sm cursor-pointer dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600;
+  @apply col-span-2 flex justify-center items-center gap-2 font-medium border border-gray-300 rounded-lg py-1.5 transition-all duration-300 text-sm cursor-pointer dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600;
 }
 main .cards .card button:hover {
-  @apply bg-neutral-200/70 dark:bg-gray-700;
+  @apply bg-gray-200/70 dark:bg-gray-700;
 }
 main .cards .card button svg {
   @apply size-4;
@@ -197,14 +201,14 @@ main .cards .card.active {
   @apply border-emerald-500 outline-1 outline-emerald-500 dark:border-emerald-700 dark:outline-emerald-700;
 }
 main .cards .card.active.playing button {
-  @apply bg-emerald-600 text-neutral-50 border-0 dark:bg-emerald-700;
+  @apply bg-emerald-600 text-gray-50 border-0 dark:bg-emerald-700;
 }
 main .cards .card.active.playing button:hover {
   @apply bg-emerald-700 dark:bg-emerald-600;
 }
 
 footer {
-  @apply sticky bottom-0 flex justify-between py-3 border-t border-neutral-300 bg-neutral-100 px-4 sm:px-12 md:px-20 dark:bg-gray-900 dark:border-gray-800 dark:text-gray-200;
+  @apply sticky bottom-0 flex justify-between py-3 border-t border-gray-300 bg-gray-100 px-4 sm:px-12 md:px-20 dark:bg-gray-900 dark:border-gray-800 dark:text-gray-200;
 }
 footer .logoPart {
   @apply flex items-center gap-3;
@@ -213,7 +217,7 @@ footer .logoPart .logo {
   @apply p-4 bg-linear-to-br from-emerald-500 to-emerald-600 rounded-xl;
 }
 footer .logoPart .logo svg {
-  @apply size-5 text-neutral-50;
+  @apply size-5 text-gray-50;
 }
 footer .logoPart h2 {
   @apply font-bold;
@@ -225,5 +229,5 @@ footer .controllers .control {
   @apply p-4 bg-emerald-600 rounded-full cursor-pointer;
 }
 footer .controllers .control svg {
-  @apply text-neutral-50 size-4;
+  @apply text-gray-50 size-4;
 }

@@ -21,7 +21,7 @@ let darkTheme = ref(false);
 
 const dataStore = useDataStore();
 onBeforeMount(async () => {
-  await fetch("/data.json")
+  await fetch("/data/data.json")
     .then((res) => res.json())
     .then((res) => {
       dataStore.setData(res, localStorage);
