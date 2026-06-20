@@ -32,9 +32,11 @@ export default defineConfig({
 
           {
             urlPattern: ({ request }) =>
-              request.destination === "script" ||
-              request.destination === "style" ||
-              request.destination === "image",
+                request.destination === "script" ||
+                request.destination === "style" ||
+                request.destination === "image" ||
+                request.destination === "fetch" ||
+                url.pathname.endsWith(".json"),
             handler: "CacheFirst",
             options: {
               cacheName: "assets-cache",
